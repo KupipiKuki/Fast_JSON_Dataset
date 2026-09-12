@@ -1,0 +1,50 @@
+{
+  "dataset_name": "merged_equipment_reference",
+  "namespace": "merged-equipment-reference-v1",
+  "record_id_fields": ["tag"],
+  "indexes": [
+    "tag",
+    "product_family",
+    "product_model",
+    "canonical_id",
+    "variant_id"
+  ],
+  "shard_size": 5000,
+  "merge": {
+    "canonical_field": "tag",
+    "variant_fields": ["product_family", "product_model", "record_type"],
+    "shard_by": "product_family"
+  },
+  "sources": [
+    {
+      "id": "equipment-workbook",
+      "path": "sources/equipment.xlsx",
+      "metadata": {
+        "product_family": "family-a",
+        "product_model": "model-1"
+      },
+      "selection": {
+        "spreadsheets": {
+          "sheets": [
+            {"name": "Equipment", "range": "A1:H5000", "header_row": 1}
+          ]
+        }
+      }
+    },
+    {
+      "id": "reference-manual",
+      "path": "sources/reference.pdf",
+      "metadata": {
+        "product_family": "family-b",
+        "product_model": "model-2"
+      },
+      "record_id_fields": ["setting_name"],
+      "selection": {
+        "pdf": {
+          "pages": "100-125",
+          "mode": "lines_and_selogic_programming"
+        }
+      }
+    }
+  ]
+}
