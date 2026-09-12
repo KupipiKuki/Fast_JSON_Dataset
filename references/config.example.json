@@ -1,0 +1,25 @@
+{
+  "dataset_name": "equipment_reference",
+  "namespace": "equipment-reference-v1",
+  "record_id_fields": ["tag"],
+  "indexes": ["tag", "description", "manufacturer"],
+  "shard_size": 5000,
+  "selection": {
+    "spreadsheets": {
+      "sheets": [
+        {"name": "Equipment", "range": "A1:H5000", "header_row": 1},
+        {"name": "Ratings", "range": "A1:F2000", "header_row": 1}
+      ]
+    },
+    "csv": {"range": "A1:H5000", "header_row": 1},
+    "word": {
+      "paragraphs": "1-25,30",
+      "tables": [{"index": 0, "header_row": 1}]
+    },
+    "pdf": {"pages": "1-10,15", "mode": "lines"}
+  },
+  "options": {
+    "excel": {"data_only": true},
+    "csv": {"encoding": "utf-8-sig", "delimiter": ","}
+  }
+}
